@@ -4,9 +4,9 @@
 
 {% block body %}
 <div class="screen screen--centered">
-    <div class="centered-panel centered-panel--pin">
-        <a href="{{ path('app_index') }}" class="back-link">← Retour</a>
+    <a href="{{ path('app_index') }}" class="back-arrow" title="Retour">&#8592;</a>
 
+    <div class="centered-panel centered-panel--pin">
         <div class="initials-circle initials-circle--medium">
             {{ employee.firstName|slice(0,1)|upper }}{{ employee.lastName|slice(0,1)|upper }}
         </div>

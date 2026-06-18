@@ -20,8 +20,9 @@
                 <input type="hidden" name="pin"  value="{{ pin }}">
                 <input type="hidden" name="type" value="in">
                 <button type="submit" class="clocking-button clocking-button--arrival">
-                    <span class="clocking-button__icon">↗</span>
-                    Arrivée
+                    <div class="clocking-button__icon">&#8599;</div>
+                    <span class="clocking-button__label">Arrivée</span>
+                    <span class="clocking-button__sublabel">Pointer mon arrivée</span>
                 </button>
             </form>
 
@@ -29,8 +30,9 @@
                 <input type="hidden" name="pin"  value="{{ pin }}">
                 <input type="hidden" name="type" value="out">
                 <button type="submit" class="clocking-button clocking-button--departure">
-                    <span class="clocking-button__icon">↙</span>
-                    Départ
+                    <div class="clocking-button__icon">&#8600;</div>
+                    <span class="clocking-button__label">Départ</span>
+                    <span class="clocking-button__sublabel">Pointer mon départ</span>
                 </button>
             </form>
         </div>

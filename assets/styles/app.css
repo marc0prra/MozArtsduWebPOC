@@ -23,6 +23,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
+    position: relative;
 }
 
 /* ── En-tête ──────────────────────────────────────────────── */
@@ -145,19 +146,29 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .centered-panel--pin    { max-width: 360px; }
 .centered-panel--action { max-width: 400px; }
 
-/* ── Lien retour ──────────────────────────────────────────── */
-.back-link {
-    display: inline-flex;
+/* ── Bouton retour (flèche en haut à gauche) ──────────────── */
+.back-arrow {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    display: flex;
     align-items: center;
-    gap: 0.4rem;
+    justify-content: center;
     color: #64748b;
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 2rem;
-    transition: color 0.15s;
+    font-size: 1.2rem;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 }
 
-.back-link:hover { color: #2563eb; }
+.back-arrow:hover {
+    background: #eff6ff;
+    color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.15);
+}
 
 /* ── Page PIN — textes ────────────────────────────────────── */
 .employee-fullname  { font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
@@ -249,31 +260,43 @@ button { cursor: pointer; font-family: inherit; border: none; }
 }
 
 .clocking-button {
-    border-radius: 14px;
-    padding: 1.4rem 1rem;
-    font-size: 1rem;
+    border-radius: 16px;
+    padding: 1.6rem 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #fff;
-    transition: all 0.15s;
+    transition: transform 0.15s, box-shadow 0.15s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.6rem;
     border: none;
     cursor: pointer;
     width: 100%;
 }
 
-.clocking-button__icon { font-size: 1.6rem; }
+.clocking-button__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
 
-.clocking-button--arrival   { background: #16a34a; }
-.clocking-button--departure { background: #dc2626; }
+.clocking-button__label    { font-size: 1.1rem; font-weight: 700; }
+.clocking-button__sublabel { font-size: 0.78rem; font-weight: 400; opacity: 0.85; }
 
-.clocking-button--arrival:hover   { background: #15803d; transform: translateY(-1px); }
-.clocking-button--departure:hover { background: #b91c1c; transform: translateY(-1px); }
+.clocking-button--arrival   { background: linear-gradient(135deg, #16a34a, #15803d); box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
+.clocking-button--departure { background: linear-gradient(135deg, #dc2626, #b91c1c); box-shadow: 0 4px 14px rgba(220,38,38,0.35); }
+
+.clocking-button--arrival:hover   { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22,163,74,0.4); }
+.clocking-button--departure:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(220,38,38,0.4); }
 
 .clocking-button--arrival:active,
-.clocking-button--departure:active { transform: scale(0.96); }
+.clocking-button--departure:active { transform: scale(0.97); }
 
 /* ── Vue admin — liste des pointages ──────────────────────── */
 .no-clocking-message {
@@ -310,8 +333,80 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .clocking-type-badge--departure { background: #fee2e2; color: #dc2626; }
 
 /* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 480px) {
-    .page-content { padding: 1.25rem; }
-    .top-bar      { padding: 1rem 1.25rem; }
-    .employee-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+
+/* Petit mobile (< 480px) ----------------------------------- */
+@media (max-width: 479px) {
+    .top-bar              { padding: 0.9rem 1rem; }
+    .top-bar__title       { font-size: 1.05rem; }
+    .top-bar__date        { display: none; }
+
+    .page-content         { padding: 1rem; }
+
+    .employee-grid        { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .employee-tile        { padding: 1.25rem 0.75rem; }
+    .employee-tile__firstname { font-size: 0.9rem; }
+    .employee-tile__lastname  { font-size: 0.75rem; }
+    .initials-circle--small   { width: 48px; height: 48px; font-size: 1.1rem; }
+
+    .screen--centered     { padding: 0.75rem; }
+    .centered-panel       { padding: 1.75rem 1.25rem; border-radius: 16px; }
+    .centered-panel--pin,
+    .centered-panel--action { max-width: 100%; }
+
+    .number-pad           { gap: 0.5rem; }
+    .number-pad__key      { padding: 1rem; font-size: 1.15rem; }
+
+    .live-time            { font-size: 2.2rem; }
+    .clocking-button      { padding: 1.1rem 0.75rem; }
+
+    .clocking-entry       { flex-wrap: wrap; }
+    .clocking-entry__timestamp { margin-left: auto; }
+    .clocking-type-badge  { width: 100%; text-align: center; margin-top: 0.25rem; }
+}
+
+/* Grand mobile / petite tablette (480px – 767px) ----------- */
+@media (min-width: 480px) and (max-width: 767px) {
+    .top-bar              { padding: 1rem 1.5rem; }
+    .page-content         { padding: 1.25rem 1.5rem; }
+
+    .employee-grid        { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+
+    .centered-panel--pin    { max-width: 340px; }
+    .centered-panel--action { max-width: 380px; }
+
+    .number-pad__key      { padding: 1.15rem; }
+}
+
+/* Tablette portrait (768px – 1023px) ----------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .employee-grid        { grid-template-columns: repeat(4, 1fr); }
+
+    .centered-panel--pin    { max-width: 400px; }
+    .centered-panel--action { max-width: 440px; }
+
+    .number-pad           { gap: 0.85rem; }
+    .number-pad__key      { padding: 1.4rem; font-size: 1.5rem; border-radius: 14px; }
+
+    .initials-circle--large { width: 90px; height: 90px; font-size: 2rem; }
+    .welcome-message      { font-size: 1.6rem; }
+    .live-time            { font-size: 3.5rem; }
+
+    .clocking-button      { padding: 1.6rem 1rem; font-size: 1.1rem; }
+    .clocking-button__icon { font-size: 1.8rem; }
+
+    .pin-progress__dot    { width: 18px; height: 18px; }
+}
+
+/* Tablette paysage / petit bureau (1024px – 1279px) --------- */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .page-content         { max-width: 1100px; padding: 2.5rem; }
+    .employee-grid        { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* Grand écran (1280px+) ------------------------------------ */
+@media (min-width: 1280px) {
+    .top-bar              { padding: 1.5rem 3rem; }
+    .page-content         { max-width: 1300px; padding: 3rem; }
+    .employee-grid        { grid-template-columns: repeat(6, 1fr); }
+    .employee-tile        { padding: 2rem 1.25rem; }
 }
