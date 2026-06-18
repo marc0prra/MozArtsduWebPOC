@@ -1,3 +1,317 @@
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    background-color: skyblue;
+    font-family: 'Inter', sans-serif;
+    background: #f0f4f8;
+    color: #0f172a;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a    { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; border: none; }
+
+/* ── Écran (wrapper de page) ──────────────────────────────── */
+.screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen--centered {
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+/* ── En-tête ──────────────────────────────────────────────── */
+.top-bar {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-bar__title { font-size: 1.25rem; font-weight: 700; color: #0f172a; }
+.top-bar__date  { font-size: 0.95rem; color: #64748b; font-weight: 500; }
+
+/* ── Bouton contour (Responsable / Retour) ────────────────── */
+.outline-button {
+    font-size: 0.85rem;
+    color: #2563eb;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border: 1.5px solid #2563eb;
+    border-radius: 8px;
+    background: transparent;
+    display: inline-block;
+    transition: background 0.15s, color 0.15s;
+}
+
+.outline-button:hover { background: #2563eb; color: #fff; }
+
+/* ── Zone de contenu principal ────────────────────────────── */
+.page-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.page-content--narrow { max-width: 800px; }
+
+/* ── Titre de section ─────────────────────────────────────── */
+.list-heading {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+}
+
+/* ── Message de succès (flash) ────────────────────────────── */
+.success-notice {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    border-radius: 10px;
+    padding: 0.85rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* ── Grille des employés ──────────────────────────────────── */
+.employee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+/* ── Carte employé (tuile cliquable) ──────────────────────── */
+.employee-tile {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.75rem 1rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: block;
+    border: 2px solid transparent;
+}
+
+.employee-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37,99,235,0.12);
+    border-color: #2563eb;
+}
+
+.employee-tile:active { transform: scale(0.97); }
+
+.employee-tile__firstname { font-size: 1.05rem; font-weight: 600; color: #0f172a; }
+.employee-tile__lastname  { font-size: 0.85rem; color: #64748b; margin-top: 0.2rem; }
+
+/* ── Cercle d'initiales ───────────────────────────────────── */
+.initials-circle {
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.initials-circle--small  { width: 64px; height: 64px; font-size: 1.5rem; }
+.initials-circle--medium { width: 72px; height: 72px; font-size: 1.6rem; }
+.initials-circle--large  { width: 80px; height: 80px; font-size: 1.8rem; }
+
+/* ── Panneau centré (PIN et Action) ───────────────────────── */
+.centered-panel {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    width: 100%;
+    text-align: center;
+}
+
+.centered-panel--pin    { max-width: 360px; }
+.centered-panel--action { max-width: 400px; }
+
+/* ── Lien retour ──────────────────────────────────────────── */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: color 0.15s;
+}
+
+.back-link:hover { color: #2563eb; }
+
+/* ── Page PIN — textes ────────────────────────────────────── */
+.employee-fullname  { font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
+.pin-instruction    { font-size: 0.9rem; color: #64748b; margin-bottom: 1.75rem; }
+.pin-error-message  {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+}
+
+/* ── Indicateurs de progression du PIN ───────────────────── */
+.pin-progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.pin-progress__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: transparent;
+    transition: all 0.15s;
+}
+
+.pin-progress__dot--filled {
+    background: #2563eb;
+    border-color: #2563eb;
+    transform: scale(1.1);
+}
+
+/* ── Pavé numérique ───────────────────────────────────────── */
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.number-pad__key {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #0f172a;
+    transition: all 0.1s;
+    line-height: 1;
+}
+
+.number-pad__key:hover  { background: #eff6ff; border-color: #2563eb; color: #2563eb; }
+.number-pad__key:active { transform: scale(0.94); background: #dbeafe; }
+.number-pad__key--delete  { font-size: 1.1rem; color: #64748b; }
+.number-pad__key--zero    { grid-column: 2; }
+
+/* ── Page Action — message de bienvenue ───────────────────── */
+.welcome-message { font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
+.panel-divider   { height: 1px; background: #f1f5f9; margin: 1.5rem 0; }
+
+/* ── Horloge en direct ────────────────────────────────────── */
+.live-time {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.live-date {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-top: 0.4rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+/* ── Boutons Arrivée / Départ ─────────────────────────────── */
+.clocking-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.clocking-button {
+    border-radius: 14px;
+    padding: 1.4rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.clocking-button__icon { font-size: 1.6rem; }
+
+.clocking-button--arrival   { background: #16a34a; }
+.clocking-button--departure { background: #dc2626; }
+
+.clocking-button--arrival:hover   { background: #15803d; transform: translateY(-1px); }
+.clocking-button--departure:hover { background: #b91c1c; transform: translateY(-1px); }
+
+.clocking-button--arrival:active,
+.clocking-button--departure:active { transform: scale(0.96); }
+
+/* ── Vue admin — liste des pointages ──────────────────────── */
+.no-clocking-message {
+    text-align: center;
+    color: #94a3b8;
+    padding: 3rem;
+    font-size: 1rem;
+}
+
+.clocking-log { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.clocking-entry {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    gap: 1rem;
+}
+
+.clocking-entry__employee-name { font-weight: 600; color: #0f172a; font-size: 0.95rem; }
+.clocking-entry__timestamp     { color: #64748b; font-size: 0.9rem; font-weight: 500; }
+
+.clocking-type-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.clocking-type-badge--arrival   { background: #dcfce7; color: #16a34a; }
+.clocking-type-badge--departure { background: #fee2e2; color: #dc2626; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .page-content { padding: 1.25rem; }
+    .top-bar      { padding: 1rem 1.25rem; }
+    .employee-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
 }

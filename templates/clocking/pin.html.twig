@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Code PIN — {{ employee.firstName }}{% endblock %}
+
+{% block body %}
+<div class="screen screen--centered">
+    <div class="centered-panel centered-panel--pin">
+        <a href="{{ path('app_index') }}" class="back-link">← Retour</a>
+
+        <div class="initials-circle initials-circle--medium">
+            {{ employee.firstName|slice(0,1)|upper }}{{ employee.lastName|slice(0,1)|upper }}
+        </div>
+        <div class="employee-fullname">{{ employee.firstName }} {{ employee.lastName }}</div>
+        <div class="pin-instruction">Entrez votre code PIN à 6 chiffres</div>
+
+        {% if error %}
+            <div class="pin-error-message">Code PIN incorrect, réessayez.</div>
+        {% endif %}
+
+        <div class="pin-progress">
+            {% for i in 1..6 %}
+                <div class="pin-progress__dot"></div>
+            {% endfor %}
+        </div>
+
+        <form method="post" action="{{ path('app_pin_verify', {id: employee.id}) }}" id="pin-form">
+            <input type="hidden" name="pin" id="pin-hidden-input">
+            <div class="number-pad">
+                {% for digit in [1,2,3,4,5,6,7,8,9] %}
+                    <button type="button" class="number-pad__key" onclick="addDigit('{{ digit }}')">{{ digit }}</button>
+                {% endfor %}
+                <button type="button" class="number-pad__key number-pad__key--delete" onclick="deleteDigit()">⌫</button>
+                <button type="button" class="number-pad__key number-pad__key--zero"   onclick="addDigit('0')">0</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

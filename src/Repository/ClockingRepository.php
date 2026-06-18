@@ -16,28 +16,18 @@ class ClockingRepository extends ServiceEntityRepository
         parent::__construct($registry, Clocking::class);
     }
 
-    //    /**
-    //     * @return Clocking[] Returns an array of Clocking objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Clocking
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /** @return Clocking[] */
+    public function findForToday(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.employee', 'e')
+            ->addSelect('e')
+            ->where('c.createdAt >= :today')
+            ->andWhere('c.createdAt < :tomorrow')
+            ->setParameter('today', new \DateTimeImmutable('today'))
+            ->setParameter('tomorrow', new \DateTimeImmutable('tomorrow'))
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

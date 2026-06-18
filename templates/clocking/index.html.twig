@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pointage{% endblock %}
+
+{% block body %}
+<div class="screen">
+    <header class="top-bar">
+        <span class="top-bar__title">Pointage</span>
+        <span class="top-bar__date" id="top-bar-date"></span>
+        <a href="{{ path('app_admin') }}" class="outline-button">Responsable</a>
+    </header>
+
+    <main class="page-content">
+        {% for flash in app.flashes('success') %}
+            <div class="success-notice">{{ flash }}</div>
+        {% endfor %}
+
+        <p class="list-heading">Sélectionnez votre nom</p>
+
+        <div class="employee-grid">
+            {% for employee in employees %}
+                <a href="{{ path('app_pin', {id: employee.id}) }}" class="employee-tile">
+                    <div class="initials-circle initials-circle--small">
+                        {{ employee.firstName|slice(0,1)|upper }}{{ employee.lastName|slice(0,1)|upper }}
+                    </div>
+                    <div class="employee-tile__firstname">{{ employee.firstName }}</div>
+                    <div class="employee-tile__lastname">{{ employee.lastName }}</div>
+                </a>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+{% endblock %}

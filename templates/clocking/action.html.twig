@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pointage — {{ employee.firstName }}{% endblock %}
+
+{% block body %}
+<div class="screen screen--centered">
+    <div class="centered-panel centered-panel--action">
+        <div class="initials-circle initials-circle--large">
+            {{ employee.firstName|slice(0,1)|upper }}{{ employee.lastName|slice(0,1)|upper }}
+        </div>
+        <div class="welcome-message">Bonjour {{ employee.firstName }} !</div>
+
+        <div class="panel-divider"></div>
+
+        <div class="live-time" id="live-time"></div>
+        <div class="live-date" id="live-date"></div>
+
+        <div class="clocking-buttons">
+            <form method="post" action="{{ path('app_record', {id: employee.id}) }}">
+                <input type="hidden" name="pin"  value="{{ pin }}">
+                <input type="hidden" name="type" value="in">
+                <button type="submit" class="clocking-button clocking-button--arrival">
+                    <span class="clocking-button__icon">↗</span>
+                    Arrivée
+                </button>
+            </form>
+
+            <form method="post" action="{{ path('app_record', {id: employee.id}) }}">
+                <input type="hidden" name="pin"  value="{{ pin }}">
+                <input type="hidden" name="type" value="out">
+                <button type="submit" class="clocking-button clocking-button--departure">
+                    <span class="clocking-button__icon">↙</span>
+                    Départ
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
