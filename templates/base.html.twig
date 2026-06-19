@@ -1,11 +1,18 @@
+{# Template de base hérité par toutes les pages.
+   Charge la police Inter (Google Fonts) et les assets JS/CSS via importmap. #}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        {# Indispensable pour que le design responsive fonctionne sur mobile/tablette #}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Pointage{% endblock %}</title>
+
+        {# Police Inter : claire et lisible sur tous les supports #}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+        {# importmap charge app.js (et app.css via l'import dans app.js) en tant que module ES #}
         {{ importmap('app') }}
     </head>
     <body>

@@ -1,4 +1,12 @@
+/* ════════════════════════════════════════════════════════════
+   app.css — Feuille de styles principale
+   Organisée par composant, du plus global au plus spécifique.
+   Nommage BEM : .bloc__element--modificateur
+   ════════════════════════════════════════════════════════════ */
+
 /* ── Reset ────────────────────────────────────────────────── */
+/* Supprime les marges/paddings par défaut et force le modèle
+   de boîte border-box sur tous les éléments */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -6,24 +14,27 @@ body {
     background: #f0f4f8;
     color: #0f172a;
     min-height: 100vh;
+    /* Supprime le flash bleu au toucher sur mobile/tablette */
     -webkit-tap-highlight-color: transparent;
 }
 
-a    { text-decoration: none; color: inherit; }
+a      { text-decoration: none; color: inherit; }
 button { cursor: pointer; font-family: inherit; border: none; }
 
 /* ── Écran (wrapper de page) ──────────────────────────────── */
+/* Utilisé sur toutes les pages comme conteneur principal */
 .screen {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
+/* Variante pour les pages PIN et Action : contenu centré verticalement */
 .screen--centered {
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
-    position: relative;
+    position: relative; /* nécessaire pour positionner .back-arrow en absolu */
 }
 
 /* ── En-tête ──────────────────────────────────────────────── */
@@ -39,7 +50,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .top-bar__title { font-size: 1.25rem; font-weight: 700; color: #0f172a; }
 .top-bar__date  { font-size: 0.95rem; color: #64748b; font-weight: 500; }
 
-/* ── Bouton contour (Responsable / Retour) ────────────────── */
+/* ── Bouton contour (← Retour / Responsable) ─────────────── */
 .outline-button {
     font-size: 0.85rem;
     color: #2563eb;
@@ -54,104 +65,13 @@ button { cursor: pointer; font-family: inherit; border: none; }
 
 .outline-button:hover { background: #2563eb; color: #fff; }
 
-/* ── Zone de contenu principal ────────────────────────────── */
-.page-content {
-    flex: 1;
-    padding: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.page-content--narrow { max-width: 800px; }
-
-/* ── Titre de section ─────────────────────────────────────── */
-.list-heading {
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #94a3b8;
-    margin-bottom: 1rem;
-}
-
-/* ── Message de succès (flash) ────────────────────────────── */
-.success-notice {
-    background: #dcfce7;
-    border: 1px solid #86efac;
-    color: #166534;
-    border-radius: 10px;
-    padding: 0.85rem 1.2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-/* ── Grille des employés ──────────────────────────────────── */
-.employee-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-}
-
-/* ── Carte employé (tuile cliquable) ──────────────────────── */
-.employee-tile {
-    background: #fff;
-    border-radius: 16px;
-    padding: 1.75rem 1rem;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
-    transition: transform 0.15s, box-shadow 0.15s;
-    display: block;
-    border: 2px solid transparent;
-}
-
-.employee-tile:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37,99,235,0.12);
-    border-color: #2563eb;
-}
-
-.employee-tile:active { transform: scale(0.97); }
-
-.employee-tile__firstname { font-size: 1.05rem; font-weight: 600; color: #0f172a; }
-.employee-tile__lastname  { font-size: 0.85rem; color: #64748b; margin-top: 0.2rem; }
-
-/* ── Cercle d'initiales ───────────────────────────────────── */
-.initials-circle {
-    border-radius: 50%;
-    background: #eff6ff;
-    color: #2563eb;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-}
-
-.initials-circle--small  { width: 64px; height: 64px; font-size: 1.5rem; }
-.initials-circle--medium { width: 72px; height: 72px; font-size: 1.6rem; }
-.initials-circle--large  { width: 80px; height: 80px; font-size: 1.8rem; }
-
-/* ── Panneau centré (PIN et Action) ───────────────────────── */
-.centered-panel {
-    background: #fff;
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
-    width: 100%;
-    text-align: center;
-}
-
-.centered-panel--pin    { max-width: 360px; }
-.centered-panel--action { max-width: 400px; }
-
-/* ── Bouton retour (flèche en haut à gauche) ──────────────── */
+/* ── Bouton retour (flèche ronde, page PIN) ───────────────── */
+/* Positionné en absolu par rapport à .screen--centered */
 .back-arrow {
     position: absolute;
     top: 1.25rem;
     left: 1.25rem;
-    width: 44px;
+    width: 44px;   /* taille minimale recommandée pour une cible tactile */
     height: 44px;
     border-radius: 50%;
     background: #fff;
@@ -170,10 +90,108 @@ button { cursor: pointer; font-family: inherit; border: none; }
     box-shadow: 0 2px 8px rgba(37,99,235,0.15);
 }
 
+/* ── Zone de contenu principal ────────────────────────────── */
+.page-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto; /* centrage horizontal */
+    width: 100%;
+}
+
+/* Variante plus étroite pour la vue admin */
+.page-content--narrow { max-width: 800px; }
+
+/* ── Titre de section ─────────────────────────────────────── */
+.list-heading {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+}
+
+/* ── Message de succès (flash après pointage) ─────────────── */
+.success-notice {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    border-radius: 10px;
+    padding: 0.85rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* ── Grille des salariés ──────────────────────────────────── */
+/* auto-fill + minmax crée automatiquement le bon nombre de colonnes
+   selon la largeur disponible (responsive sans media query supplémentaire) */
+.employee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+/* ── Tuile cliquable d'un salarié ─────────────────────────── */
+.employee-tile {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.75rem 1rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: block;
+    border: 2px solid transparent; /* réservé pour le survol */
+}
+
+.employee-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37,99,235,0.12);
+    border-color: #2563eb;
+}
+
+/* Retour visuel au toucher (tablette) */
+.employee-tile:active { transform: scale(0.97); }
+
+.employee-tile__firstname { font-size: 1.05rem; font-weight: 600; color: #0f172a; }
+.employee-tile__lastname  { font-size: 0.85rem; color: #64748b; margin-top: 0.2rem; }
+
+/* ── Cercle d'initiales ───────────────────────────────────── */
+/* Trois tailles selon le contexte (tuile, panneau PIN, panneau action) */
+.initials-circle {
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.initials-circle--small  { width: 64px; height: 64px; font-size: 1.5rem; }
+.initials-circle--medium { width: 72px; height: 72px; font-size: 1.6rem; }
+.initials-circle--large  { width: 80px; height: 80px; font-size: 1.8rem; }
+
+/* ── Panneau centré (pages PIN et Action) ─────────────────── */
+.centered-panel {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    width: 100%;
+    text-align: center;
+}
+
+.centered-panel--pin    { max-width: 360px; }
+.centered-panel--action { max-width: 400px; }
+
 /* ── Page PIN — textes ────────────────────────────────────── */
-.employee-fullname  { font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
-.pin-instruction    { font-size: 0.9rem; color: #64748b; margin-bottom: 1.75rem; }
-.pin-error-message  {
+.employee-fullname { font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
+.pin-instruction   { font-size: 0.9rem; color: #64748b; margin-bottom: 1.75rem; }
+
+.pin-error-message {
     background: #fee2e2;
     color: #b91c1c;
     border-radius: 8px;
@@ -183,7 +201,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     margin-bottom: 1.25rem;
 }
 
-/* ── Indicateurs de progression du PIN ───────────────────── */
+/* ── Indicateurs de progression du PIN (6 points) ────────── */
 .pin-progress {
     display: flex;
     justify-content: center;
@@ -200,6 +218,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     transition: all 0.15s;
 }
 
+/* Classe ajoutée dynamiquement par app.js à chaque chiffre saisi */
 .pin-progress__dot--filled {
     background: #2563eb;
     border-color: #2563eb;
@@ -226,15 +245,20 @@ button { cursor: pointer; font-family: inherit; border: none; }
 }
 
 .number-pad__key:hover  { background: #eff6ff; border-color: #2563eb; color: #2563eb; }
+/* Retour visuel au toucher */
 .number-pad__key:active { transform: scale(0.94); background: #dbeafe; }
-.number-pad__key--delete  { font-size: 1.1rem; color: #64748b; }
-.number-pad__key--zero    { grid-column: 2; }
+
+.number-pad__key--delete { font-size: 1.1rem; color: #64748b; }
+/* Le 0 est placé en 2ème colonne (centré sur la ligne du bas) */
+.number-pad__key--zero   { grid-column: 2; }
 
 /* ── Page Action — message de bienvenue ───────────────────── */
 .welcome-message { font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
+/* Séparateur visuel entre le nom et l'horloge */
 .panel-divider   { height: 1px; background: #f1f5f9; margin: 1.5rem 0; }
 
 /* ── Horloge en direct ────────────────────────────────────── */
+/* Contenu injecté toutes les secondes par app.js */
 .live-time {
     font-size: 3rem;
     font-weight: 800;
@@ -248,7 +272,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     color: #64748b;
     margin-top: 0.4rem;
     font-weight: 500;
-    text-transform: capitalize;
+    text-transform: capitalize; /* met la majuscule sur le jour de la semaine */
 }
 
 /* ── Boutons Arrivée / Départ ─────────────────────────────── */
@@ -272,9 +296,10 @@ button { cursor: pointer; font-family: inherit; border: none; }
     gap: 0.6rem;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 100%; /* nécessaire car le bouton est dans un <form> */
 }
 
+/* Cercle semi-transparent contenant l'icône fléchée */
 .clocking-button__icon {
     width: 48px;
     height: 48px;
@@ -289,12 +314,12 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .clocking-button__label    { font-size: 1.1rem; font-weight: 700; }
 .clocking-button__sublabel { font-size: 0.78rem; font-weight: 400; opacity: 0.85; }
 
+/* Dégradé + ombre colorée pour un rendu plus soigné */
 .clocking-button--arrival   { background: linear-gradient(135deg, #16a34a, #15803d); box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
 .clocking-button--departure { background: linear-gradient(135deg, #dc2626, #b91c1c); box-shadow: 0 4px 14px rgba(220,38,38,0.35); }
 
 .clocking-button--arrival:hover   { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22,163,74,0.4); }
 .clocking-button--departure:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(220,38,38,0.4); }
-
 .clocking-button--arrival:active,
 .clocking-button--departure:active { transform: scale(0.97); }
 
@@ -322,46 +347,55 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .clocking-entry__employee-name { font-weight: 600; color: #0f172a; font-size: 0.95rem; }
 .clocking-entry__timestamp     { color: #64748b; font-size: 0.9rem; font-weight: 500; }
 
+/* Badge coloré indiquant le type de pointage */
 .clocking-type-badge {
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
+    white-space: nowrap; /* empêche le badge de se couper sur deux lignes */
 }
 
 .clocking-type-badge--arrival   { background: #dcfce7; color: #16a34a; }
 .clocking-type-badge--departure { background: #fee2e2; color: #dc2626; }
 
-/* ── Responsive ───────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   Media queries — du plus petit au plus grand écran
+   ════════════════════════════════════════════════════════════ */
 
 /* Petit mobile (< 480px) ----------------------------------- */
 @media (max-width: 479px) {
+    /* En-tête compact, date masquée pour gagner de la place */
     .top-bar              { padding: 0.9rem 1rem; }
     .top-bar__title       { font-size: 1.05rem; }
     .top-bar__date        { display: none; }
 
     .page-content         { padding: 1rem; }
 
+    /* Grille 2 colonnes sur petit écran */
     .employee-grid        { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
     .employee-tile        { padding: 1.25rem 0.75rem; }
     .employee-tile__firstname { font-size: 0.9rem; }
     .employee-tile__lastname  { font-size: 0.75rem; }
     .initials-circle--small   { width: 48px; height: 48px; font-size: 1.1rem; }
 
+    /* Panneau pleine largeur sur petit écran */
     .screen--centered     { padding: 0.75rem; }
     .centered-panel       { padding: 1.75rem 1.25rem; border-radius: 16px; }
     .centered-panel--pin,
     .centered-panel--action { max-width: 100%; }
 
+    /* Touches du pavé plus compactes */
     .number-pad           { gap: 0.5rem; }
     .number-pad__key      { padding: 1rem; font-size: 1.15rem; }
 
     .live-time            { font-size: 2.2rem; }
     .clocking-button      { padding: 1.1rem 0.75rem; }
 
-    .clocking-entry       { flex-wrap: wrap; }
+    /* Entrées admin en colonne sur petit écran */
+    .clocking-entry           { flex-wrap: wrap; }
     .clocking-entry__timestamp { margin-left: auto; }
-    .clocking-type-badge  { width: 100%; text-align: center; margin-top: 0.25rem; }
+    .clocking-type-badge      { width: 100%; text-align: center; margin-top: 0.25rem; }
 }
 
 /* Grand mobile / petite tablette (480px – 767px) ----------- */
@@ -369,6 +403,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     .top-bar              { padding: 1rem 1.5rem; }
     .page-content         { padding: 1.25rem 1.5rem; }
 
+    /* Grille 3 colonnes */
     .employee-grid        { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
 
     .centered-panel--pin    { max-width: 340px; }
@@ -377,24 +412,27 @@ button { cursor: pointer; font-family: inherit; border: none; }
     .number-pad__key      { padding: 1.15rem; }
 }
 
-/* Tablette portrait (768px – 1023px) ----------------------- */
+/* Tablette portrait (768px – 1023px) — cible principale ---- */
 @media (min-width: 768px) and (max-width: 1023px) {
+    /* Grille 4 colonnes pour une bonne densité sur tablette */
     .employee-grid        { grid-template-columns: repeat(4, 1fr); }
 
     .centered-panel--pin    { max-width: 400px; }
     .centered-panel--action { max-width: 440px; }
 
+    /* Touches plus grandes pour une meilleure ergonomie tactile */
     .number-pad           { gap: 0.85rem; }
     .number-pad__key      { padding: 1.4rem; font-size: 1.5rem; border-radius: 14px; }
 
     .initials-circle--large { width: 90px; height: 90px; font-size: 2rem; }
-    .welcome-message      { font-size: 1.6rem; }
-    .live-time            { font-size: 3.5rem; }
+    .welcome-message        { font-size: 1.6rem; }
+    .live-time              { font-size: 3.5rem; }
 
-    .clocking-button      { padding: 1.6rem 1rem; font-size: 1.1rem; }
-    .clocking-button__icon { font-size: 1.8rem; }
+    /* Boutons plus imposants sur tablette */
+    .clocking-button        { padding: 1.6rem 1rem; font-size: 1.1rem; }
+    .clocking-button__icon  { font-size: 1.8rem; }
 
-    .pin-progress__dot    { width: 18px; height: 18px; }
+    .pin-progress__dot      { width: 18px; height: 18px; }
 }
 
 /* Tablette paysage / petit bureau (1024px – 1279px) --------- */

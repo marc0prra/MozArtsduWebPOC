@@ -6,8 +6,13 @@ use App\Entity\Employee;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * Génère des salariés de test avec leur code PIN haché.
+ * Les références permettent à ClockingFixtures de lier les pointages sans requête supplémentaire.
+ */
 class EmployeeFixtures extends Fixture
 {
+    // Constantes utilisées pour référencer chaque salarié dans les autres fixtures
     public const EMPLOYEE_ALICE   = 'employee-alice';
     public const EMPLOYEE_BOB     = 'employee-bob';
     public const EMPLOYEE_CAMILLE = 'employee-camille';
@@ -24,9 +29,11 @@ class EmployeeFixtures extends Fixture
             $employee = new Employee();
             $employee->setFirstName($data['firstName']);
             $employee->setLastName($data['lastName']);
+            // Le PIN est haché avec bcrypt — jamais stocké en clair
             $employee->setPinHash(password_hash($data['pin'], PASSWORD_BCRYPT));
 
             $manager->persist($employee);
+            // addReference() permet à ClockingFixtures de récupérer cet objet
             $this->addReference($reference, $employee);
         }
 

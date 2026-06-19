@@ -1,92 +1,123 @@
 # Système de pointage PME — MozArtsduWeb
 
-## Contexte d'usage choisi
-
-Pointage sur une **tablette commune à l'accueil** de l'entreprise.
-
-Ce choix justifie toute la solution anti-usurpation : les salariés passent devant la tablette en arrivant/partant, comme une badgeuse, sans avoir besoin de leur propre appareil.
-
----
-
-## Mécanisme anti-usurpation : Liste des employés + PIN à 6 chiffres
-
-### Le problème à résoudre
-
-Deux exigences contradictoires :
-- Pointer **vite**, sans ressaisir un login/mot de passe complet à chaque fois
-- **Aucune usurpation** : un salarié ne peut pas pointer à la place d'un collègue
-
-### La solution — Flux en 3 étapes
-
-```
-[Écran d'accueil]           [Saisie PIN]                [Page de pointage]
-┌──────────────────┐        ┌──────────────────┐        ┌──────────────────┐
-│ Jean Dupont      │ ──────>│ Bonjour Jean     │ ──────>│ Bonjour Jean !   │
-│ Marie Martin     │  clic  │                  │  PIN   │                  │
-│ Paul Bernard     │        │ [_][_][_][_][_][_]│  OK   │ [Arrivée] [Départ]│
-│ ...              │        │                  │        │                  │
-└──────────────────┘        └──────────────────┘        └──────────────────┘
-```
-
-1. **Liste des employés** — Grille avec prénom + nom de tous les salariés, affichée en permanence à l'écran
-2. **Clic sur son nom** — L'interface de saisie du PIN à 6 chiffres s'affiche (les autres noms disparaissent)
-3. **PIN validé** — Redirection vers la page de pointage personnelle où l'employé choisit arrivée ou départ
-
-### Pourquoi ça résout le problème de collision
-
-Même si deux employés avaient le même PIN, il n'y a aucune ambiguïté : le PIN est toujours vérifié contre **une seule personne** (celle qui a été cliquée). Le système ne cherche jamais un PIN dans toute la base, il vérifie juste `PIN saisi == PIN de Jean Dupont`.
-
-C'est le même principe qu'un distributeur automatique : la **carte** (= nom cliqué) + le **code** (= PIN) = identité certaine.
-
-### Sécurité du PIN
-
-- Les PINs sont **hashés en bcrypt** en base de données — jamais stockés en clair
-- Connaître le nom d'un collègue ne suffit pas, il faut aussi son PIN personnel à 6 chiffres
-- L'admin définit les PINs à la création des comptes via une interface back-office séparée
-
----
-
-## Structure de la base de données
-
-```sql
-employees
-  - id
-  - first_name
-  - last_name
-  - pin_hash
-  - created_at
-
-clockings
-  - id
-  - employee_id (FK → employees)
-  - type (ENUM: 'arrivée', 'départ')
-  - created_at
-```
-
----
-
-## Stack technique
-
-> En attente de confirmation si Symfony est autorisé. Sinon : **Laravel**.
-
-- Back-end : Symfony **ou** Laravel (PHP)
-- Front-end : HTML / CSS / JavaScript
-- Base de données : MySQL
+Test technique · Alternance Développement Web · Rentrée septembre 2026
 
 ---
 
 ## Lancer le projet
 
-> Section à compléter une fois la stack confirmée.
+### Prérequis
+
+- PHP 8.2+
+- Composer
+- Symfony CLI
+- MySQL / MariaDB (ex : XAMPP)
+
+### Installation
+
+```bash
+# 1. Cloner le dépôt
+git clone <url-du-repo>
+cd MozArtsduWeb
+
+# 2. Installer les dépendances PHP
+composer install
+
+# 3. Configurer la base de données
+cp .env .env.local
+# Modifier DATABASE_URL dans .env.local :
+# DATABASE_URL="mysql://root:@127.0.0.1:3306/mozartsduweb"
+
+# 4. Créer la base et appliquer les migrations
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+
+# 5. Charger les données de test
+php bin/console doctrine:fixtures:load
+
+# 6. Lancer le serveur
+symfony serve
+```
+
+L'application est accessible sur `http://127.0.0.1:8000`.
+
+### Comptes de test
+
+| Prénom  | Nom     | Code PIN |
+|---------|---------|----------|
+| Alice   | Martin  | 123456   |
+| Bob     | Dupont  | 234567   |
+| Camille | Bernard | 345678   |
 
 ---
 
-## Ce que j'aurais amélioré avec plus de temps
+## Contexte d'usage
 
-> Section à compléter à la fin du projet.
+L'application est conçue pour une **tablette fixe à l'accueil** de l'entreprise, en mode kiosque (sans barre d'URL visible). Les salariés n'ont accès qu'à l'écran de pointage — ils ne peuvent naviguer nulle part ailleurs.
+
+La **vue responsable** n'est pas accessible depuis la tablette. Elle est consultable via une URL confidentielle, bookmarkée par le responsable sur son propre appareil (téléphone ou PC).
+
+---
+
+## Mécanisme anti-usurpation : code PIN à 6 chiffres
+
+### Le problème
+
+Deux exigences s'opposent : pointer vite (pas de long identifiant/mot de passe) et empêcher qu'un salarié pointe à la place d'un collègue.
+
+### La solution
+
+Chaque salarié dispose d'un **code PIN personnel à 6 chiffres**. Le flux est :
+
+```
+[Liste des salariés]    [Saisie PIN]              [Arrivée / Départ]
+┌───────────────────┐   ┌───────────────────┐   ┌───────────────────┐
+│  Alice Martin     │──>│  Alice Martin     │──>│  Bonjour Alice !  │
+│  Bob Dupont       │   │  ● ● ● ○ ○ ○      │   │  14:32:07         │
+│  Camille Bernard  │   │  [1][2][3]        │   │ [Arrivée][Départ] │
+└───────────────────┘   │  [4][5][6]  ...   │   └───────────────────┘
+                        └───────────────────┘
+```
+
+1. Le salarié sélectionne son prénom parmi la liste.
+2. Il saisit son PIN à 6 chiffres sur le pavé numérique tactile.
+3. Si le PIN est correct, il choisit **Arrivée** ou **Départ**.
+4. Le pointage est enregistré en base avec l'horodatage exact.
+
+### Pourquoi ce choix est adapté
+
+- **Rapide** : 3 gestes — sélectionner, saisir 6 chiffres (soumission automatique), appuyer sur un bouton.
+- **Sécurisé** : même si un collègue connaît votre prénom, il ne connaît pas votre PIN. 6 chiffres = 1 000 000 combinaisons.
+- **Adapté au tactile** : le pavé numérique a de grandes touches, conçues pour une utilisation sur tablette.
+- **Même principe qu'un distributeur automatique** : carte (= prénom sélectionné) + code (= PIN) = identité certaine.
+
+### Sécurité technique
+
+- Les PINs sont **hachés en bcrypt** en base de données, jamais stockés en clair.
+- Le PIN est **vérifié deux fois côté serveur** : à la validation du formulaire PIN, puis à nouveau au moment d'enregistrer le pointage — pour éviter toute soumission forgée qui contournerait l'étape d'authentification.
+
+---
+
+## Stack technique
+
+- **Back-end** : Symfony 7 (PHP 8.2)
+- **ORM** : Doctrine
+- **Front-end** : HTML, CSS, JavaScript vanilla
+- **Base de données** : MySQL
 
 ---
 
 ## Pourquoi le web m'intéresse
 
-> Parce que j'aime bien le résultat final.
+
+## Ce que je recherche dans cette alternance
+
+
+## Ce que j'aurais amélioré avec plus de temps
+
+- **Authentification responsable** : remplacer l'URL confidentielle par un vrai login sécurisé.
+- **Historique complet** : filtrer les pointages par salarié et par période, pas seulement le jour courant.
+- **Détection des anomalies** : alerter si un salarié pointe deux arrivées de suite sans départ intermédiaire.
+- **Export CSV** : permettre au responsable d'exporter les données pour les intégrer dans un outil RH.
+- **Gestion des salariés** : interface admin pour créer, modifier ou désactiver un salarié sans toucher à la base.
+- **Tests automatisés** : écrire des tests fonctionnels (PHPUnit / Panther) pour fiabiliser le flux de pointage.

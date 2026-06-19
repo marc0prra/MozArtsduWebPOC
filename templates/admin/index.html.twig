@@ -1,38 +1,56 @@
+{# Vue réservée au responsable hiérarchique.
+   Liste tous les pointages du jour courant, du plus récent au plus ancien.
+   Accessible uniquement via une URL confidentielle, depuis l'appareil du responsable. #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Responsable — Pointages du jour{% endblock %}
 
 {% block body %}
 <div class="screen">
+
     <header class="top-bar">
         <span class="top-bar__title">Pointages du jour</span>
+        {# Lien retour vers l'écran de pointage #}
         <a href="{{ path('app_index') }}" class="outline-button">← Retour</a>
     </header>
 
     <main class="page-content page-content--narrow">
+
+        {# En-tête de la liste : date du jour + nombre total de pointages #}
         <p class="list-heading">
             {{ "now"|date("d/m/Y") }} — {{ clockings|length }} pointage{{ clockings|length > 1 ? 's' : '' }}
         </p>
 
+        {# Message affiché si aucun pointage n'a encore été enregistré aujourd'hui #}
         {% if clockings is empty %}
             <div class="no-clocking-message">Aucun pointage aujourd'hui.</div>
+
         {% else %}
+            {# Liste des pointages triée du plus récent au plus ancien (ordre géré par la requête SQL) #}
             <div class="clocking-log">
                 {% for clocking in clockings %}
                     <div class="clocking-entry">
+
+                        {# Nom complet du salarié #}
                         <span class="clocking-entry__employee-name">
                             {{ clocking.employee.firstName }} {{ clocking.employee.lastName }}
                         </span>
+
+                        {# Heure exacte du pointage #}
                         <span class="clocking-entry__timestamp">
                             {{ clocking.createdAt|date('H:i:s') }}
                         </span>
+
+                        {# Badge coloré : vert pour arrivée, rouge pour départ #}
                         <span class="clocking-type-badge {{ clocking.type == 'in' ? 'clocking-type-badge--arrival' : 'clocking-type-badge--departure' }}">
                             {{ clocking.type == 'in' ? 'Arrivée' : 'Départ' }}
                         </span>
+
                     </div>
                 {% endfor %}
             </div>
         {% endif %}
+
     </main>
 </div>
 {% endblock %}

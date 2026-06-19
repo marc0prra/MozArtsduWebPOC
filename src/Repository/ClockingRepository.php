@@ -16,12 +16,17 @@ class ClockingRepository extends ServiceEntityRepository
         parent::__construct($registry, Clocking::class);
     }
 
-    /** @return Clocking[] */
+    /**
+     * Retourne tous les pointages du jour courant, triés du plus récent au plus ancien.
+     * Charge les salariés associés en une seule requête (JOIN) pour éviter les requêtes N+1.
+     *
+     * @return Clocking[]
+     */
     public function findForToday(): array
     {
         return $this->createQueryBuilder('c')
             ->join('c.employee', 'e')
-            ->addSelect('e')
+            ->addSelect('e') // chargement eager pour éviter les requêtes supplémentaires
             ->where('c.createdAt >= :today')
             ->andWhere('c.createdAt < :tomorrow')
             ->setParameter('today', new \DateTimeImmutable('today'))

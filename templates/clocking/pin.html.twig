@@ -1,38 +1,55 @@
+{# Page de saisie du code PIN.
+   Le salarié entre son PIN à 6 chiffres via le pavé numérique tactile.
+   Le formulaire se soumet automatiquement au 6ème chiffre (géré par app.js). #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Code PIN — {{ employee.firstName }}{% endblock %}
 
 {% block body %}
 <div class="screen screen--centered">
+
+    {# Bouton retour : flèche ronde positionnée en haut à gauche de l'écran #}
     <a href="{{ path('app_index') }}" class="back-arrow" title="Retour">&#8592;</a>
 
     <div class="centered-panel centered-panel--pin">
+
+        {# Initiales du salarié sélectionné #}
         <div class="initials-circle initials-circle--medium">
             {{ employee.firstName|slice(0,1)|upper }}{{ employee.lastName|slice(0,1)|upper }}
         </div>
+
         <div class="employee-fullname">{{ employee.firstName }} {{ employee.lastName }}</div>
         <div class="pin-instruction">Entrez votre code PIN à 6 chiffres</div>
 
+        {# Message d'erreur affiché si le PIN soumis ne correspond pas #}
         {% if error %}
             <div class="pin-error-message">Code PIN incorrect, réessayez.</div>
         {% endif %}
 
+        {# 6 points visuels indiquant la progression de la saisie (remplis par app.js) #}
         <div class="pin-progress">
             {% for i in 1..6 %}
                 <div class="pin-progress__dot"></div>
             {% endfor %}
         </div>
 
+        {# Le PIN est stocké dans un champ caché et injecté par app.js juste avant la soumission.
+           Il n'est jamais affiché à l'écran pour éviter qu'un tiers le voie. #}
         <form method="post" action="{{ path('app_pin_verify', {id: employee.id}) }}" id="pin-form">
             <input type="hidden" name="pin" id="pin-hidden-input">
+
+            {# Pavé numérique tactile — les onclick appellent addDigit() et deleteDigit() définis dans app.js #}
             <div class="number-pad">
                 {% for digit in [1,2,3,4,5,6,7,8,9] %}
                     <button type="button" class="number-pad__key" onclick="addDigit('{{ digit }}')">{{ digit }}</button>
                 {% endfor %}
+                {# Touche effacement #}
                 <button type="button" class="number-pad__key number-pad__key--delete" onclick="deleteDigit()">⌫</button>
-                <button type="button" class="number-pad__key number-pad__key--zero"   onclick="addDigit('0')">0</button>
+                {# Le 0 est centré sur la 2ème colonne via number-pad__key--zero #}
+                <button type="button" class="number-pad__key number-pad__key--zero" onclick="addDigit('0')">0</button>
             </div>
         </form>
+
     </div>
 </div>
 {% endblock %}

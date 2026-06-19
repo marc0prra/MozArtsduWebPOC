@@ -5,6 +5,10 @@ namespace App\Entity;
 use App\Repository\ClockingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Représente un pointage (arrivée ou départ) d'un salarié.
+ * Le type est soit 'in' (arrivée) soit 'out' (départ).
+ */
 #[ORM\Entity(repositoryClass: ClockingRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Clocking
@@ -14,16 +18,20 @@ class Clocking
     #[ORM\Column]
     private ?int $id = null;
 
+    /** Salarié qui a effectué ce pointage. */
     #[ORM\ManyToOne(inversedBy: 'clockings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Employee $employee = null;
 
+    /** Type de pointage : 'in' pour une arrivée, 'out' pour un départ. */
     #[ORM\Column(length: 10)]
     private ?string $type = null;
 
+    /** Date et heure exactes du pointage, définies automatiquement à la création. */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /** Initialise automatiquement l'horodatage avant le premier enregistrement. */
     #[ORM\PrePersist]
     public function initCreatedAt(): void
     {

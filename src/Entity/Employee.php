@@ -7,6 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Représente un salarié de l'entreprise.
+ * Le PIN est stocké sous forme de hash bcrypt, jamais en clair.
+ */
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Employee
@@ -22,6 +26,7 @@ class Employee
     #[ORM\Column(length: 100)]
     private ?string $lastName = null;
 
+    /** Code PIN haché avec password_hash() / PASSWORD_BCRYPT */
     #[ORM\Column(length: 255)]
     private ?string $pinHash = null;
 
@@ -29,6 +34,8 @@ class Employee
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
+     * Un salarié peut avoir plusieurs pointages (arrivées et départs).
+     *
      * @var Collection<int, Clocking>
      */
     #[ORM\OneToMany(targetEntity: Clocking::class, mappedBy: 'employee', orphanRemoval: true)]
@@ -39,6 +46,7 @@ class Employee
         $this->clockings = new ArrayCollection();
     }
 
+    /** Initialise automatiquement la date de création avant le premier enregistrement. */
     #[ORM\PrePersist]
     public function initCreatedAt(): void
     {
@@ -91,9 +99,7 @@ class Employee
         return $this->createdAt;
     }
 
-    /**
-     * @return Collection<int, Clocking>
-     */
+    /** @return Collection<int, Clocking> */
     public function getClockings(): Collection
     {
         return $this->clockings;

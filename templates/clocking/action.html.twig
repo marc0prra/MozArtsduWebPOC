@@ -1,3 +1,6 @@
+{# Page de choix du type de pointage, affichée après validation du PIN.
+   Le salarié choisit entre Arrivée et Départ.
+   L'heure affichée est mise à jour en temps réel par app.js. #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Pointage — {{ employee.firstName }}{% endblock %}
@@ -5,6 +8,8 @@
 {% block body %}
 <div class="screen screen--centered">
     <div class="centered-panel centered-panel--action">
+
+        {# Initiales et message de bienvenue personnalisé #}
         <div class="initials-circle initials-circle--large">
             {{ employee.firstName|slice(0,1)|upper }}{{ employee.lastName|slice(0,1)|upper }}
         </div>
@@ -12,10 +17,16 @@
 
         <div class="panel-divider"></div>
 
+        {# Horloge en direct — les IDs live-time et live-date sont ciblés par app.js #}
         <div class="live-time" id="live-time"></div>
-        <div class="live-date" id="live-date"></div>
+        <div class="live-date"  id="live-date"></div>
 
+        {# Deux formulaires distincts pour Arrivée et Départ.
+           Le PIN est retransmis en champ caché et re-vérifié côté serveur
+           pour éviter qu'un POST forgé contourne l'authentification. #}
         <div class="clocking-buttons">
+
+            {# Bouton Arrivée #}
             <form method="post" action="{{ path('app_record', {id: employee.id}) }}">
                 <input type="hidden" name="pin"  value="{{ pin }}">
                 <input type="hidden" name="type" value="in">
@@ -26,6 +37,7 @@
                 </button>
             </form>
 
+            {# Bouton Départ #}
             <form method="post" action="{{ path('app_record', {id: employee.id}) }}">
                 <input type="hidden" name="pin"  value="{{ pin }}">
                 <input type="hidden" name="type" value="out">
@@ -35,6 +47,7 @@
                     <span class="clocking-button__sublabel">Pointer mon départ</span>
                 </button>
             </form>
+
         </div>
     </div>
 </div>
