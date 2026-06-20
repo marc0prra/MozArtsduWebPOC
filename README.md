@@ -126,4 +126,3 @@ Au-delà du technique, ce qui m'intéresse chez MozArtsduWeb c'est de comprendre
 - **Détection des anomalies** : alerter si un salarié pointe deux arrivées de suite sans départ intermédiaire.
 - **Export CSV** : permettre au responsable d'exporter les données pour les intégrer dans un outil RH.
 - **Gestion des salariés** : interface admin pour créer, modifier ou désactiver un salarié sans toucher à la base.
-- **Tests automatisés** : écrire des tests fonctionnels (PHPUnit / Panther) pour fiabiliser le flux de pointage.
