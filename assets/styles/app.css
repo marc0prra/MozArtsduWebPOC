@@ -1,12 +1,5 @@
-/* ════════════════════════════════════════════════════════════
-   app.css — Feuille de styles principale
-   Organisée par composant, du plus global au plus spécifique.
-   Nommage BEM : .bloc__element--modificateur
-   ════════════════════════════════════════════════════════════ */
 
-/* ── Reset ────────────────────────────────────────────────── */
-/* Supprime les marges/paddings par défaut et force le modèle
-   de boîte border-box sur tous les éléments */
+/* Supprime les marges/paddings par défaut et force le modèle de boîte border-box sur tous les éléments */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -21,23 +14,22 @@ body {
 a      { text-decoration: none; color: inherit; }
 button { cursor: pointer; font-family: inherit; border: none; }
 
-/* ── Écran (wrapper de page) ──────────────────────────────── */
-/* Utilisé sur toutes les pages comme conteneur principal */
+/* conteneur principal */
 .screen {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Variante pour les pages PIN et Action : contenu centré verticalement */
+/* contenu centré verticalement */
 .screen--centered {
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
-    position: relative; /* nécessaire pour positionner .back-arrow en absolu */
+    position: relative; 
 }
 
-/* ── En-tête ──────────────────────────────────────────────── */
+/* En-tête */
 .top-bar {
     background: #fff;
     border-bottom: 1px solid #e2e8f0;
@@ -50,7 +42,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .top-bar__title { font-size: 1.25rem; font-weight: 700; color: #0f172a; }
 .top-bar__date  { font-size: 0.95rem; color: #64748b; font-weight: 500; }
 
-/* ── Bouton contour (← Retour / Responsable) ─────────────── */
+/*  Bouton contour (← Retour / Responsable) */
 .outline-button {
     font-size: 0.85rem;
     color: #2563eb;
@@ -65,13 +57,13 @@ button { cursor: pointer; font-family: inherit; border: none; }
 
 .outline-button:hover { background: #2563eb; color: #fff; }
 
-/* ── Bouton retour (flèche ronde, page PIN) ───────────────── */
-/* Positionné en absolu par rapport à .screen--centered */
+/* ── Bouton retour 
+*/
 .back-arrow {
     position: absolute;
     top: 1.25rem;
     left: 1.25rem;
-    width: 44px;   /* taille minimale recommandée pour une cible tactile */
+    width: 44px;  
     height: 44px;
     border-radius: 50%;
     background: #fff;
@@ -90,7 +82,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     box-shadow: 0 2px 8px rgba(37,99,235,0.15);
 }
 
-/* ── Zone de contenu principal ────────────────────────────── */
+/* Zone de contenu principal*/
 .page-content {
     flex: 1;
     padding: 2rem;
@@ -102,7 +94,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 /* Variante plus étroite pour la vue admin */
 .page-content--narrow { max-width: 800px; }
 
-/* ── Titre de section ─────────────────────────────────────── */
+/* Titre de section */
 .list-heading {
     font-size: 0.8rem;
     font-weight: 600;
@@ -112,7 +104,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     margin-bottom: 1rem;
 }
 
-/* ── Message de succès (flash après pointage) ─────────────── */
+/* Message de succès (flash après pointage) */
 .success-notice {
     background: #dcfce7;
     border: 1px solid #86efac;
@@ -124,16 +116,14 @@ button { cursor: pointer; font-family: inherit; border: none; }
     font-size: 0.95rem;
 }
 
-/* ── Grille des salariés ──────────────────────────────────── */
-/* auto-fill + minmax crée automatiquement le bon nombre de colonnes
-   selon la largeur disponible (responsive sans media query supplémentaire) */
+/* Grille des salariés */
 .employee-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1rem;
 }
 
-/* ── Tuile cliquable d'un salarié ─────────────────────────── */
+/* Tuile cliquable d'un salarié */
 .employee-tile {
     background: #fff;
     border-radius: 16px;
@@ -151,14 +141,12 @@ button { cursor: pointer; font-family: inherit; border: none; }
     border-color: #2563eb;
 }
 
-/* Retour visuel au toucher (tablette) */
 .employee-tile:active { transform: scale(0.97); }
 
 .employee-tile__firstname { font-size: 1.05rem; font-weight: 600; color: #0f172a; }
 .employee-tile__lastname  { font-size: 0.85rem; color: #64748b; margin-top: 0.2rem; }
 
-/* ── Cercle d'initiales ───────────────────────────────────── */
-/* Trois tailles selon le contexte (tuile, panneau PIN, panneau action) */
+/* Cercle d'initiales */
 .initials-circle {
     border-radius: 50%;
     background: #eff6ff;
@@ -174,7 +162,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .initials-circle--medium { width: 72px; height: 72px; font-size: 1.6rem; }
 .initials-circle--large  { width: 80px; height: 80px; font-size: 1.8rem; }
 
-/* ── Panneau centré (pages PIN et Action) ─────────────────── */
+/* Panneau centré (pages PIN et Action) */
 .centered-panel {
     background: #fff;
     border-radius: 24px;
@@ -187,7 +175,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .centered-panel--pin    { max-width: 360px; }
 .centered-panel--action { max-width: 400px; }
 
-/* ── Page PIN — textes ────────────────────────────────────── */
+/* Page PIN — textes */
 .employee-fullname { font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
 .pin-instruction   { font-size: 0.9rem; color: #64748b; margin-bottom: 1.75rem; }
 
@@ -201,7 +189,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
     margin-bottom: 1.25rem;
 }
 
-/* ── Indicateurs de progression du PIN (6 points) ────────── */
+/* Indicateurs de progression du PIN (6 points) */
 .pin-progress {
     display: flex;
     justify-content: center;
@@ -218,14 +206,13 @@ button { cursor: pointer; font-family: inherit; border: none; }
     transition: all 0.15s;
 }
 
-/* Classe ajoutée dynamiquement par app.js à chaque chiffre saisi */
 .pin-progress__dot--filled {
     background: #2563eb;
     border-color: #2563eb;
     transform: scale(1.1);
 }
 
-/* ── Pavé numérique ───────────────────────────────────────── */
+/* Pavé numérique */
 .number-pad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -245,20 +232,17 @@ button { cursor: pointer; font-family: inherit; border: none; }
 }
 
 .number-pad__key:hover  { background: #eff6ff; border-color: #2563eb; color: #2563eb; }
-/* Retour visuel au toucher */
 .number-pad__key:active { transform: scale(0.94); background: #dbeafe; }
 
 .number-pad__key--delete { font-size: 1.1rem; color: #64748b; }
-/* Le 0 est placé en 2ème colonne (centré sur la ligne du bas) */
 .number-pad__key--zero   { grid-column: 2; }
 
-/* ── Page Action — message de bienvenue ───────────────────── */
+/* Page Action — message de bienvenue */
 .welcome-message { font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
 /* Séparateur visuel entre le nom et l'horloge */
 .panel-divider   { height: 1px; background: #f1f5f9; margin: 1.5rem 0; }
 
-/* ── Horloge en direct ────────────────────────────────────── */
-/* Contenu injecté toutes les secondes par app.js */
+/*  Horloge en direct */
 .live-time {
     font-size: 3rem;
     font-weight: 800;
@@ -272,10 +256,10 @@ button { cursor: pointer; font-family: inherit; border: none; }
     color: #64748b;
     margin-top: 0.4rem;
     font-weight: 500;
-    text-transform: capitalize; /* met la majuscule sur le jour de la semaine */
+    text-transform: capitalize;
 }
 
-/* ── Boutons Arrivée / Départ ─────────────────────────────── */
+/* Boutons Arrivée / Départ */
 .clocking-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -296,10 +280,9 @@ button { cursor: pointer; font-family: inherit; border: none; }
     gap: 0.6rem;
     border: none;
     cursor: pointer;
-    width: 100%; /* nécessaire car le bouton est dans un <form> */
+    width: 100%; 
 }
 
-/* Cercle semi-transparent contenant l'icône fléchée */
 .clocking-button__icon {
     width: 48px;
     height: 48px;
@@ -314,7 +297,6 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .clocking-button__label    { font-size: 1.1rem; font-weight: 700; }
 .clocking-button__sublabel { font-size: 0.78rem; font-weight: 400; opacity: 0.85; }
 
-/* Dégradé + ombre colorée pour un rendu plus soigné */
 .clocking-button--arrival   { background: linear-gradient(135deg, #16a34a, #15803d); box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
 .clocking-button--departure { background: linear-gradient(135deg, #dc2626, #b91c1c); box-shadow: 0 4px 14px rgba(220,38,38,0.35); }
 
@@ -323,7 +305,6 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .clocking-button--arrival:active,
 .clocking-button--departure:active { transform: scale(0.97); }
 
-/* ── Vue admin — liste des pointages ──────────────────────── */
 .no-clocking-message {
     text-align: center;
     color: #94a3b8;
@@ -347,23 +328,17 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .clocking-entry__employee-name { font-weight: 600; color: #0f172a; font-size: 0.95rem; }
 .clocking-entry__timestamp     { color: #64748b; font-size: 0.9rem; font-weight: 500; }
 
-/* Badge coloré indiquant le type de pointage */
 .clocking-type-badge {
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
-    white-space: nowrap; /* empêche le badge de se couper sur deux lignes */
+    white-space: nowrap; 
 }
 
 .clocking-type-badge--arrival   { background: #dcfce7; color: #16a34a; }
 .clocking-type-badge--departure { background: #fee2e2; color: #dc2626; }
 
-/* ════════════════════════════════════════════════════════════
-   Media queries — du plus petit au plus grand écran
-   ════════════════════════════════════════════════════════════ */
-
-/* Petit mobile (< 480px) ----------------------------------- */
 @media (max-width: 479px) {
     /* En-tête compact, date masquée pour gagner de la place */
     .top-bar              { padding: 0.9rem 1rem; }
@@ -398,7 +373,6 @@ button { cursor: pointer; font-family: inherit; border: none; }
     .clocking-type-badge      { width: 100%; text-align: center; margin-top: 0.25rem; }
 }
 
-/* Grand mobile / petite tablette (480px – 767px) ----------- */
 @media (min-width: 480px) and (max-width: 767px) {
     .top-bar              { padding: 1rem 1.5rem; }
     .page-content         { padding: 1.25rem 1.5rem; }
@@ -412,7 +386,6 @@ button { cursor: pointer; font-family: inherit; border: none; }
     .number-pad__key      { padding: 1.15rem; }
 }
 
-/* Tablette portrait (768px – 1023px) — cible principale ---- */
 @media (min-width: 768px) and (max-width: 1023px) {
     /* Grille 4 colonnes pour une bonne densité sur tablette */
     .employee-grid        { grid-template-columns: repeat(4, 1fr); }
@@ -435,13 +408,11 @@ button { cursor: pointer; font-family: inherit; border: none; }
     .pin-progress__dot      { width: 18px; height: 18px; }
 }
 
-/* Tablette paysage / petit bureau (1024px – 1279px) --------- */
 @media (min-width: 1024px) and (max-width: 1279px) {
     .page-content         { max-width: 1100px; padding: 2.5rem; }
     .employee-grid        { grid-template-columns: repeat(5, 1fr); }
 }
 
-/* Grand écran (1280px+) ------------------------------------ */
 @media (min-width: 1280px) {
     .top-bar              { padding: 1.5rem 3rem; }
     .page-content         { max-width: 1300px; padding: 3rem; }

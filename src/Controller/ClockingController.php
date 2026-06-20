@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Clocking;
@@ -10,13 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * Gère le flux de pointage :
- *   1. Affichage de la liste des salariés
- *   2. Saisie du code PIN
- *   3. Choix arrivée / départ
- *   4. Enregistrement du pointage en base
- */
 class ClockingController extends AbstractController
 {
     /** Affiche la liste de tous les salariés sous forme de tuiles cliquables. */
@@ -43,14 +38,6 @@ class ClockingController extends AbstractController
         ]);
     }
 
-    /**
-     * Vérifie le code PIN soumis.
-     * - PIN correct  → affiche l'écran de choix arrivée / départ
-     * - PIN incorrect → réaffiche le pavé numérique avec un message d'erreur
-     *
-     * Le PIN n'est jamais stocké en session : il transite en champ caché
-     * jusqu'à l'écran suivant, où il est re-vérifié avant enregistrement.
-     */
     #[Route('/clock/{id}', name: 'app_pin_verify', methods: ['POST'])]
     public function verifyPin(int $id, Request $request, EmployeeRepository $repo): Response
     {
@@ -75,10 +62,6 @@ class ClockingController extends AbstractController
         ]);
     }
 
-    /**
-     * Enregistre le pointage en base de données.
-     * Le PIN est re-vérifié ici pour éviter qu'un POST forgé contourne l'étape d'authentification.
-     */
     #[Route('/clock/{id}/record', name: 'app_record', methods: ['POST'])]
     public function record(int $id, Request $request, EmployeeRepository $repo, EntityManagerInterface $em): Response
     {

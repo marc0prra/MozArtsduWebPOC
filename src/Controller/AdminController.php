@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Repository\ClockingRepository;
@@ -7,11 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * Vue réservée au responsable hiérarchique.
- * Accessible uniquement via une URL confidentielle (non listée dans l'interface tablette).
- * Le responsable bookmarke cette URL sur son propre appareil.
- */
 class AdminController extends AbstractController
 {
     /** Affiche tous les pointages enregistrés aujourd'hui, du plus récent au plus ancien. */

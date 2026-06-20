@@ -11,7 +11,7 @@ Test technique · Alternance Développement Web · Rentrée septembre 2026
 - PHP 8.2+
 - Composer
 - Symfony CLI
-- MySQL / MariaDB (ex : XAMPP)
+- MySQL  (XAMPP)
 
 ### Installation
 
@@ -94,7 +94,6 @@ Chaque salarié dispose d'un **code PIN personnel à 6 chiffres**. Le flux est :
 ### Sécurité technique
 
 - Les PINs sont **hachés en bcrypt** en base de données, jamais stockés en clair.
-- Le PIN est **vérifié deux fois côté serveur** : à la validation du formulaire PIN, puis à nouveau au moment d'enregistrer le pointage — pour éviter toute soumission forgée qui contournerait l'étape d'authentification.
 
 ---
 
@@ -102,7 +101,7 @@ Chaque salarié dispose d'un **code PIN personnel à 6 chiffres**. Le flux est :
 
 - **Back-end** : Symfony 7 (PHP 8.2)
 - **ORM** : Doctrine
-- **Front-end** : HTML, CSS, JavaScript vanilla
+- **Front-end** : HTML, CSS, JavaScript
 - **Base de données** : MySQL
 
 ---
@@ -115,9 +114,9 @@ Ce que j'apprécie aussi, c'est la liberté que ça donne : avec les compétence
 
 ## Ce que je recherche dans cette alternance
 
-Avant tout, acquérir de l'expérience concrète en conditions réelles — ce qu'un cours ou un projet scolaire ne peut pas vraiment reproduire. Je souhaite notamment découvrir Laravel, que j'ai peu pratiqué mais qui est très présent en entreprise, et progresser dessus au contact de professionnels.
+Avant tout, acquérir de l'expérience concrète en conditions réelles — ce qu'un cours ou un projet scolaire ne peut pas vraiment reproduire. Je souhaite notamment découvrir Laravel, et progresser dessus au contact de professionnels.
 
-Au-delà du technique, ce qui m'intéresse chez MozArtsduWeb c'est de comprendre comment fonctionne la relation client : comment trouver un client, comment cadrer un projet avec lui, gérer les échanges, et accompagner le projet de la première discussion jusqu'à la livraison finale. C'est cette vision complète du métier — pas seulement coder, mais aussi comprendre le besoin et y répondre — que j'aimerais développer pendant cette alternance.
+Au-delà du technique, ce qui m'intéresse chez MozArtsduWeb c'est de comprendre comment fonctionne la relation client : comment trouver un client, comment cadrer un projet avec lui, gérer les échanges, et accompagner le projet de la première discussion jusqu'à la livraison finale. C'est cette vision complète du métier — pas seulement coder, mais aussi comprendre le besoin et y répondre — ;que j'aimerais développer pendant cette alternance, ce qui colle parfaitement a mon bachelor (coordinateur de projets informatiques)
 
 ## Ce que j'aurais amélioré avec plus de temps
 

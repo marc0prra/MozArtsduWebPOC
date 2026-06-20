@@ -37,14 +37,14 @@
             <input type="hidden" name="pin" id="pin-hidden-input">
 
             {# Pavé numérique tactile — les onclick appellent addDigit() et deleteDigit() définis dans app.js #}
-            <div class="number-pad">
+            <div class="number-pad" id="number-pad">
                 {% for digit in [1,2,3,4,5,6,7,8,9] %}
-                    <button type="button" class="number-pad__key" onclick="addDigit('{{ digit }}')">{{ digit }}</button>
+                    <button type="button" class="number-pad__key" data-digit="{{ digit }}">{{ digit }}</button>
                 {% endfor %}
                 {# Touche effacement #}
-                <button type="button" class="number-pad__key number-pad__key--delete" onclick="deleteDigit()">⌫</button>
+                <button type="button" class="number-pad__key number-pad__key--delete" data-delete>⌫</button>
                 {# Le 0 est centré sur la 2ème colonne via number-pad__key--zero #}
-                <button type="button" class="number-pad__key number-pad__key--zero" onclick="addDigit('0')">0</button>
+                <button type="button" class="number-pad__key number-pad__key--zero" data-digit="0">0</button>
             </div>
         </form>
 
