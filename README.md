@@ -125,3 +125,13 @@ Au-delà du technique, ce qui m'intéresse chez MozArtsduWeb c'est de comprendre
 - **Détection des anomalies** : alerter si un salarié pointe deux arrivées de suite sans départ intermédiaire.
 - **Export CSV** : permettre au responsable d'exporter les données pour les intégrer dans un outil RH.
 - **Gestion des salariés** : interface admin pour créer, modifier ou désactiver un salarié sans toucher à la base.
+
+---
+
+## Utilisation de l'IA
+
+J'ai utilisé Claude (IA d'Anthropic) comme assistant tout au long du projet, principalement sur les points où je manquais de recul.
+
+Le côté **JavaScript** est celui où l'IA a été la plus utile : je ne connaissais pas le comportement de Turbo (@hotwired/turbo) qui intercepte la navigation et empêche les scripts de se ré-exécuter entre les pages. C'est l'IA qui m'a expliqué pourquoi le pavé numérique ne fonctionnait pas après navigation, et m'a orienté vers l'événement `turbo:load`. Elle m'a aussi aidé à corriger la fuite mémoire du `setInterval` et à remplacer les `onclick` par de la délégation d'événements avec des attributs `data-*`.
+
+Sur le **PHP/Symfony**, l'IA m'a aidé à me rappeler les bonnes pratiques PSR comme `declare(strict_types=1)`.
