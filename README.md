@@ -136,7 +136,7 @@ Le côté **JavaScript** est celui où l'IA a été la plus utile : je ne connai
 
 Sur le **PHP/Symfony**, l'IA m'a aidé à me rappeler les bonnes pratiques PSR comme `declare(strict_types=1)`.
 
-Ce que j'ai fait **sans l'IA** : le choix du contexte d'usage (tablette kiosque sans barre d'URL), le mécanisme anti-usurpation (PIN plutôt que QR code ou badge), la logique de re-vérification du PIN côté serveur avant chaque enregistrement, l'URL confidentielle pour la vue responsable, la structure des entités, et le choix de Symfony.
+Ce que j'ai fait **sans l'IA** : le choix du contexte d'usage (tablette kiosque sans barre d'URL), le mécanisme anti-usurpation (PIN plutôt que QR code ou badge), l'URL confidentielle pour la vue responsable, la structure des entités, les fixtures, le repository et le choix de Symfony.
 
 ### Moi et l'IA
 
