@@ -1,6 +1,4 @@
-{# Page d'accueil de la tablette de pointage.
-   Affiche la liste de tous les salariés sous forme de tuiles cliquables.
-   C'est le seul écran visible en mode kiosque (pas de barre d'URL). #}
+{# Page d'accueil de la tablette de pointage #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Pointage{% endblock %}
@@ -13,20 +11,20 @@
         <span class="top-bar__title">Pointage</span>
         <span class="top-bar__date" id="top-bar-date"></span>
         {# Le lien vers la vue responsable est intentionnellement absent :
-           sur la tablette kiosque il n'y a pas de barre d'URL,
-           le responsable accède à sa vue depuis son propre appareil. #}
+           sur la tablette kiosque il n'y a pas de barre d'URL
+           le responsable accède à sa vue depuis son propre appareil #}
     </header>
 
     <main class="page-content">
 
-        {# Message de confirmation affiché après un pointage réussi (flash Symfony) #}
+        {# Message de confirmation affiché après un pointage réussi (flash) #}
         {% for flash in app.flashes('success') %}
             <div class="success-notice">{{ flash }}</div>
         {% endfor %}
 
         <p class="list-heading">Sélectionnez votre nom</p>
 
-        {# Grille responsive des salariés : chaque tuile mène à la page de saisie du PIN #}
+        {# Grille responsive des salariés : chaque ligne mène à la page de saisie du PIN #}
         <div class="employee-grid">
             {% for employee in employees %}
                 <a href="{{ path('app_pin', {id: employee.id}) }}" class="employee-tile">

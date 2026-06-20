@@ -23,7 +23,7 @@ class Clocking
     #[ORM\JoinColumn(nullable: false)]
     private ?Employee $employee = null;
 
-    /** Type de pointage : 'in' pour une arrivée, 'out' pour un départ. */
+    /** Type de pointage */
     #[ORM\Column(length: 10)]
     private ?string $type = null;
 

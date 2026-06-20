@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Représente un salarié de l'entreprise.
- * Le PIN est stocké sous forme de hash bcrypt, jamais en clair.
+ * Le PIN est stocké sous forme de hash bcrypt.
  */
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -26,7 +26,7 @@ class Employee
     #[ORM\Column(length: 100)]
     private ?string $lastName = null;
 
-    /** Code PIN haché avec password_hash() / PASSWORD_BCRYPT */
+    /** Code PIN haché avec password_hash() */
     #[ORM\Column(length: 255)]
     private ?string $pinHash = null;
 

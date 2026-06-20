@@ -1,6 +1,4 @@
-{# Vue réservée au responsable hiérarchique.
-   Liste tous les pointages du jour courant, du plus récent au plus ancien.
-   Accessible uniquement via une URL confidentielle, depuis l'appareil du responsable. #}
+{# Page Admin #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Responsable — Pointages du jour{% endblock %}
@@ -16,7 +14,7 @@
 
     <main class="page-content page-content--narrow">
 
-        {# En-tête de la liste : date du jour + nombre total de pointages #}
+        {# date du jour + nombre total de pointages #}
         <p class="list-heading">
             {{ "now"|date("d/m/Y") }} — {{ clockings|length }} pointage{{ clockings|length > 1 ? 's' : '' }}
         </p>
@@ -26,7 +24,7 @@
             <div class="no-clocking-message">Aucun pointage aujourd'hui.</div>
 
         {% else %}
-            {# Liste des pointages triée du plus récent au plus ancien (ordre géré par la requête SQL) #}
+            {# Liste des pointages triée du plus récent au plus ancien (géré par requête SQL) #}
             <div class="clocking-log">
                 {% for clocking in clockings %}
                     <div class="clocking-entry">

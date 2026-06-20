@@ -109,9 +109,15 @@ Chaque salarié dispose d'un **code PIN personnel à 6 chiffres**. Le flux est :
 
 ## Pourquoi le web m'intéresse
 
+Ce qui m'attire dans le web, c'est la satisfaction de voir un projet prendre forme et devenir utilisable concrètement. Créer quelque chose que d'autres vont réellement utiliser, c'est motivant. Le web est aussi omniprésent dans le quotidien : des services essentiels comme la déclaration d'impôts, les démarches administratives, ou des dizaines d'autres outils passent aujourd'hui par un navigateur. Participer à construire ces interfaces, c'est contribuer à quelque chose d'utile et de concret.
+
+Ce que j'apprécie aussi, c'est la liberté que ça donne : avec les compétences web, on peut créer ses propres outils sur mesure. Par exemple, une application de suivi pour la salle de sport — avec la liste des exercices, la mémorisation des performances séance après séance, l'évolution des charges — quelque chose qu'on ne trouve pas toujours exactement comme on le voudrait dans les apps existantes. C'est cette capacité à transformer une idée en quelque chose de fonctionnel qui me plaît.
 
 ## Ce que je recherche dans cette alternance
 
+Avant tout, acquérir de l'expérience concrète en conditions réelles — ce qu'un cours ou un projet scolaire ne peut pas vraiment reproduire. Je souhaite notamment découvrir Laravel, que j'ai peu pratiqué mais qui est très présent en entreprise, et progresser dessus au contact de professionnels.
+
+Au-delà du technique, ce qui m'intéresse chez MozArtsduWeb c'est de comprendre comment fonctionne la relation client : comment trouver un client, comment cadrer un projet avec lui, gérer les échanges, et accompagner le projet de la première discussion jusqu'à la livraison finale. C'est cette vision complète du métier — pas seulement coder, mais aussi comprendre le besoin et y répondre — que j'aimerais développer pendant cette alternance.
 
 ## Ce que j'aurais amélioré avec plus de temps
 

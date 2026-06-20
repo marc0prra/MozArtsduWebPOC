@@ -6,10 +6,7 @@ use App\Entity\Employee;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * Génère des salariés de test avec leur code PIN haché.
- * Les références permettent à ClockingFixtures de lier les pointages sans requête supplémentaire.
- */
+/** Génère des salariés de test avec leur code PIN haché.*/
 class EmployeeFixtures extends Fixture
 {
     // Constantes utilisées pour référencer chaque salarié dans les autres fixtures
