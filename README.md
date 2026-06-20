@@ -135,3 +135,9 @@ J'ai utilisé Claude (IA d'Anthropic) comme assistant tout au long du projet, pr
 Le côté **JavaScript** est celui où l'IA a été la plus utile : je ne connaissais pas le comportement de Turbo (@hotwired/turbo) qui intercepte la navigation et empêche les scripts de se ré-exécuter entre les pages. C'est l'IA qui m'a expliqué pourquoi le pavé numérique ne fonctionnait pas après navigation, et m'a orienté vers l'événement `turbo:load`. Elle m'a aussi aidé à corriger la fuite mémoire du `setInterval` et à remplacer les `onclick` par de la délégation d'événements avec des attributs `data-*`.
 
 Sur le **PHP/Symfony**, l'IA m'a aidé à me rappeler les bonnes pratiques PSR comme `declare(strict_types=1)`.
+
+Ce que j'ai fait **sans l'IA** : le choix du contexte d'usage (tablette kiosque sans barre d'URL), le mécanisme anti-usurpation (PIN plutôt que QR code ou badge), la logique de re-vérification du PIN côté serveur avant chaque enregistrement, l'URL confidentielle pour la vue responsable, la structure des entités, et le choix de Symfony.
+
+### Moi et l'IA
+
+Le **front-end** (templates Twig et CSS) a été fait en collaboration : je donnais les directives (structure des pages, nommage BEM des classes, responsive, comportements souhaités) et l'IA produisait le code (pour gagner du temps surtout), que je relisais, corrigeais et ajustais. Les choix de design et d'ergonomie restaient les miens.
